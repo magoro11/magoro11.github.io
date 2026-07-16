@@ -3,13 +3,59 @@ export interface ExperienceItem {
   title: string;
   organization: string;
   period: string;
-  type: "project" | "freelance" | "leadership" | "opensource" | "internship";
+  type: "project" | "freelance" | "leadership" | "opensource" | "internship" | "networking";
   description: string;
   highlights: string[];
   technologies?: string[];
 }
 
 export const experienceItems: ExperienceItem[] = [
+  {
+    id: "zidio",
+    title: "Full-Stack Development Intern",
+    organization: "Zidio Development",
+    period: "May 2026 — Present",
+    type: "internship",
+    description:
+      "Building Project LOOP — a multi-tenant AI customer-feedback intelligence platform that classifies, analyses, and surfaces insights from customer feedback at scale.",
+    highlights: [
+      "Architecting multi-tenant workspace isolation and role-based access control",
+      "Implementing a validated REST API layer with Next.js and TypeScript",
+      "Developing AI-powered features: automated classification, retrieval-grounded Q&A, and report generation via Claude AI",
+    ],
+    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Claude AI", "REST APIs"],
+  },
+  {
+    id: "codveda",
+    title: "Full-Stack Development Intern",
+    organization: "Codveda",
+    period: "Jan 2026 — Apr 2026",
+    type: "internship",
+    description:
+      "Rebuilt client-facing front ends and developed full-stack features across MERN-stack applications, shipping real-time communication and GraphQL API layers.",
+    highlights: [
+      "Rebuilt a client front end with a modern JS framework including auth and third-party API integration",
+      "Built full-stack applications on the MERN stack (MongoDB, Express, React, Node.js)",
+      "Implemented WebSocket-based real-time communication features",
+      "Developed GraphQL APIs to support front-end data requirements",
+    ],
+    technologies: ["React", "Node.js", "MongoDB", "Express", "WebSockets", "GraphQL"],
+  },
+  {
+    id: "node-mall",
+    title: "CCTV Security & Networking Technician",
+    organization: "Node Mall",
+    period: "Dec 2025 — Apr 2026",
+    type: "networking",
+    description:
+      "Maintained and secured physical and digital infrastructure for a busy commercial environment, covering network operations, CCTV systems, and web presence.",
+    highlights: [
+      "Monitored network security, Wi-Fi connectivity, and CCTV/communications infrastructure",
+      "Configured and troubleshot Wi-Fi networking equipment and security settings; handled installations",
+      "Maintained the organisation's website and tracked analytics to inform improvements",
+    ],
+    technologies: ["Networking", "CCTV", "Wi-Fi", "Security", "Analytics"],
+  },
   {
     id: "freelance",
     title: "Freelance Full-Stack Developer",

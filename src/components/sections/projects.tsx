@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Search } from "lucide-react";
+import { ExternalLink, Search, ArrowUpRight } from "lucide-react";
 import { GitHubIcon } from "@/components/ui/social-icons";
 import { useI18n } from "@/lib/i18n/context";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { Badge } from "@/components/ui/badge";
-import { TiltCard } from "@/components/ui/tilt-card";
 import { projects, projectCategories } from "@/lib/data/projects";
 import { cn } from "@/lib/utils";
 
@@ -17,30 +15,30 @@ export function Projects() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filtered = projects.filter((p) => {
-    const matchesCategory = activeCategory === "all" || p.category === activeCategory;
+    const matchesCat = activeCategory === "all" || p.category === activeCategory;
+    const q = searchQuery.toLowerCase();
     const matchesSearch =
-      !searchQuery ||
-      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.technologies.some((tech) =>
-        tech.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    return matchesCategory && matchesSearch;
+      !q ||
+      p.title.toLowerCase().includes(q) ||
+      p.technologies.some((tech) => tech.toLowerCase().includes(q));
+    return matchesCat && matchesSearch;
   });
 
   return (
-    <section id="projects" className="py-24 relative">
+    <section id="projects" className="py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.projects.title} subtitle={t.projects.subtitle} />
 
-        <div className="flex flex-col sm:flex-row gap-4 mb-10">
-          <div className="relative flex-1 max-w-md">
-            <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
+        {/* Filters */}
+        <div className="flex flex-col sm:flex-row gap-3 mb-10">
+          <div className="relative flex-1 max-w-xs">
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[--text-muted]" />
             <input
               type="text"
               placeholder={t.projects.search}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-white/40 outline-none focus:border-cyan-400/50 transition-colors"
+              className="w-full pl-9 pr-4 py-2 bg-[--surface] border border-[--border] rounded-lg text-[--text-primary] placeholder:text-[--text-muted] text-sm outline-none focus:border-[--accent] transition-colors"
             />
           </div>
           <div className="flex flex-wrap gap-2">
@@ -49,10 +47,10 @@ export function Projects() {
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={cn(
-                  "px-4 py-2 rounded-xl text-sm font-medium transition-all cursor-pointer",
+                  "px-3 py-1.5 rounded-lg text-xs font-medium border transition-all duration-150 cursor-pointer",
                   activeCategory === cat.id
-                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20"
-                    : "bg-white/5 text-white/60 border border-white/10 hover:bg-white/10"
+                    ? "border-[--accent] text-[--accent-light] bg-[--accent-glow]"
+                    : "border-[--border] text-[--text-muted] hover:border-[--border-2] hover:text-[--text-secondary]"
                 )}
               >
                 {cat.label}
@@ -61,84 +59,91 @@ export function Projects() {
           </div>
         </div>
 
-        <motion.div layout className="grid md:grid-cols-2 gap-8">
+        {/* Grid */}
+        <motion.div layout className="grid md:grid-cols-2 gap-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
-              <motion.div
+              <motion.article
                 key={project.id}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ delay: i * 0.05, duration: 0.4 }}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.97 }}
+                transition={{ delay: i * 0.04, duration: 0.35 }}
+                className="group rounded-2xl border border-[--border] bg-[--surface] overflow-hidden hover:border-[--border-2] transition-colors duration-200"
               >
-                <TiltCard>
-                  <div className="group rounded-2xl overflow-hidden bg-white/5 border border-white/10 backdrop-blur-xl hover:border-cyan-400/30 transition-all hover:shadow-xl hover:shadow-cyan-500/10">
-                    <div
-                      className={`h-48 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}
-                    >
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-2xl font-bold text-white/90 drop-shadow-lg">
-                          {project.title}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-white/60 text-sm leading-relaxed mb-4">
-                        {project.description}
-                      </p>
-
-                      <ul className="space-y-1 mb-4">
-                        {project.features.slice(0, 3).map((feature) => (
-                          <li key={feature} className="text-white/50 text-xs flex items-center gap-2">
-                            <span className="w-1 h-1 rounded-full bg-cyan-400" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.technologies.map((tech) => (
-                          <Badge key={tech}>{tech}</Badge>
-                        ))}
-                      </div>
-
-                      <div className="flex gap-3">
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
-                          >
-                            <ExternalLink size={14} />
-                            Live Demo
-                          </a>
-                        )}
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors"
-                          >
-                            <GitHubIcon size={14} />
-                            Source Code
-                          </a>
-                        )}
-                      </div>
+                {/* Gradient header — replaces missing images */}
+                <div
+                  className={`h-40 bg-gradient-to-br ${project.gradient} relative`}
+                  aria-hidden="true"
+                >
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
+                  {/* Category chip */}
+                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wide bg-black/40 text-white/80 border border-white/10">
+                    {project.category}
+                  </span>
+                  {/* Arrow icon top-right on hover */}
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="w-7 h-7 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center">
+                      <ArrowUpRight size={14} className="text-white" />
                     </div>
                   </div>
-                </TiltCard>
-              </motion.div>
+                </div>
+
+                <div className="p-5">
+                  <h3 className="font-semibold text-[--text-primary] mb-1.5 group-hover:text-[--accent-light] transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-[--text-muted] text-sm leading-relaxed mb-4 line-clamp-2">
+                    {project.description}
+                  </p>
+
+                  {/* Tech tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-0.5 rounded text-[10px] font-medium border border-[--border-2] text-[--text-muted]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex items-center gap-4 text-xs">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[--accent-light] hover:underline"
+                      >
+                        <ExternalLink size={12} />
+                        Live demo
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-[--text-muted] hover:text-[--text-secondary] transition-colors"
+                      >
+                        <GitHubIcon size={12} />
+                        Source
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.article>
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {filtered.length === 0 && (
+          <p className="text-center text-[--text-muted] py-16 text-sm">No projects match your filter.</p>
+        )}
       </div>
     </section>
   );

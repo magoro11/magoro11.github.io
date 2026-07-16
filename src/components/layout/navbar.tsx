@@ -8,15 +8,15 @@ import { ThemeToggle } from "@/components/features/theme-toggle";
 import { LanguageSwitcher } from "@/components/features/language-switcher";
 import { cn } from "@/lib/utils";
 
-const navItems = [
-  { key: "home" as const, href: "#home" },
-  { key: "about" as const, href: "#about" },
-  { key: "skills" as const, href: "#skills" },
-  { key: "projects" as const, href: "#projects" },
+const NAV_ITEMS = [
+  { key: "home"       as const, href: "#home" },
+  { key: "about"      as const, href: "#about" },
+  { key: "skills"     as const, href: "#skills" },
+  { key: "projects"   as const, href: "#projects" },
   { key: "experience" as const, href: "#experience" },
-  { key: "contact" as const, href: "#contact" },
-  { key: "blog" as const, href: "#blog" },
-];
+  { key: "contact"    as const, href: "#contact" },
+  { key: "blog"       as const, href: "#blog" },
+] as const;
 
 interface NavbarProps {
   onOpenCommandPalette: () => void;
@@ -25,86 +25,128 @@ interface NavbarProps {
 export function Navbar({ onOpenCommandPalette }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const { t } = useI18n();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Intersection observer for active section highlight
+  useEffect(() => {
+    const ids = NAV_ITEMS.map((n) => n.key);
+    const observers: IntersectionObserver[] = [];
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { threshold: 0.35 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, delay: 0.5 }}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-white/10 shadow-lg"
+          ? "bg-[--bg]/85 backdrop-blur-xl border-b border-[--border] shadow-sm"
           : "bg-transparent"
       )}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#home" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm group-hover:shadow-lg group-hover:shadow-cyan-500/30 transition-shadow">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+
+        {/* Logo */}
+        <a href="#home" className="flex items-center gap-2.5 group" aria-label="Brighton Magoro">
+          <div
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold tracking-tight transition-shadow duration-200 group-hover:shadow-[0_0_16px_rgba(124,106,247,0.4)]"
+            style={{ background: "linear-gradient(135deg, #7c6af7, #6366f1)" }}
+          >
             BM
           </div>
-          <span className="font-semibold text-white hidden sm:block">Brighton</span>
+          <span className="font-semibold text-[--text-primary] text-sm hidden sm:block">Brighton</span>
         </a>
 
-        <div className="hidden lg:flex items-center gap-1">
-          {navItems.map((item) => (
-            <a
-              key={item.key}
-              href={item.href}
-              className="px-3 py-2 text-sm text-white/70 hover:text-cyan-400 transition-colors rounded-lg hover:bg-white/5"
-            >
-              {t.nav[item.key]}
-            </a>
-          ))}
+        {/* Desktop nav */}
+        <div className="hidden lg:flex items-center gap-0.5">
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeSection === item.key;
+            return (
+              <a
+                key={item.key}
+                href={item.href}
+                className={cn(
+                  "px-3 py-1.5 text-sm rounded-lg transition-colors duration-150",
+                  isActive
+                    ? "text-[--accent-light] bg-[--accent-glow]"
+                    : "text-[--text-secondary] hover:text-[--text-primary] hover:bg-[--surface]"
+                )}
+              >
+                {t.nav[item.key]}
+              </a>
+            );
+          })}
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* Right controls */}
+        <div className="flex items-center gap-1.5">
           <button
             onClick={onOpenCommandPalette}
-            className="hidden md:flex items-center gap-2 px-3 py-1.5 text-xs text-white/50 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+            className="hidden md:flex items-center gap-2 px-2.5 py-1.5 text-xs text-[--text-muted] border border-[--border] rounded-lg hover:border-[--border-2] hover:text-[--text-secondary] transition-colors cursor-pointer"
             aria-label="Open command palette"
           >
-            <Command size={14} />
-            <span>Ctrl+K</span>
+            <Command size={13} />
+            <span>⌘K</span>
           </button>
           <LanguageSwitcher />
           <ThemeToggle />
           <button
-            className="lg:hidden p-2 text-white/70 hover:text-white cursor-pointer"
+            className="lg:hidden p-1.5 text-[--text-secondary] hover:text-[--text-primary] transition-colors cursor-pointer"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </nav>
 
+      {/* Mobile drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#0a0a0f]/95 backdrop-blur-xl border-b border-white/10"
+            className="lg:hidden border-b border-[--border] bg-[--bg]/95 backdrop-blur-xl overflow-hidden"
           >
-            <div className="px-4 py-4 flex flex-col gap-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.key}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="px-4 py-3 text-white/70 hover:text-cyan-400 hover:bg-white/5 rounded-lg transition-colors"
-                >
-                  {t.nav[item.key]}
-                </a>
-              ))}
+            <div className="px-4 py-3 flex flex-col gap-0.5">
+              {NAV_ITEMS.map((item) => {
+                const isActive = activeSection === item.key;
+                return (
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={cn(
+                      "px-3 py-2.5 text-sm rounded-lg transition-colors",
+                      isActive
+                        ? "text-[--accent-light] bg-[--accent-glow]"
+                        : "text-[--text-secondary] hover:text-[--text-primary] hover:bg-[--surface]"
+                    )}
+                  >
+                    {t.nav[item.key]}
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
         )}

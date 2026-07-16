@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { testimonials } from "@/lib/data/testimonials";
@@ -10,95 +10,113 @@ import { testimonials } from "@/lib/data/testimonials";
 export function Testimonials() {
   const { t } = useI18n();
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [dir, setDir] = useState(1);
 
-  const next = useCallback(() => {
-    setDirection(1);
-    setCurrent((prev) => (prev + 1) % testimonials.length);
+  const go = useCallback((next: number, direction: number) => {
+    setDir(direction);
+    setCurrent(next);
   }, []);
 
-  const prev = () => {
-    setDirection(-1);
-    setCurrent((p) => (p - 1 + testimonials.length) % testimonials.length);
-  };
+  const prev = () => go((current - 1 + testimonials.length) % testimonials.length, -1);
+  const next = useCallback(() => go((current + 1) % testimonials.length, 1), [current, go]);
 
   useEffect(() => {
-    const interval = setInterval(next, 5000);
-    return () => clearInterval(interval);
+    const id = setInterval(next, 5500);
+    return () => clearInterval(id);
   }, [next]);
 
-  const slideVariants = {
-    enter: (dir: number) => ({ x: dir > 0 ? 300 : -300, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir > 0 ? -300 : 300, opacity: 0 }),
-  };
+  const item = testimonials[current];
 
   return (
-    <section id="testimonials" className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 via-transparent to-cyan-500/5 pointer-events-none" />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section id="testimonials" className="py-28 relative">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.testimonials.title} subtitle={t.testimonials.subtitle} />
 
-        <div className="relative min-h-[280px]">
-          <AnimatePresence mode="wait" custom={direction}>
+        <div className="relative">
+          <AnimatePresence mode="wait" custom={dir}>
             <motion.div
               key={current}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="p-8 md:p-10 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl"
+              custom={dir}
+              initial={{ opacity: 0, x: dir * 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: dir * -30 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="p-8 rounded-2xl border border-[--border] bg-[--surface]"
             >
-              <Quote size={32} className="text-cyan-400/30 mb-4" />
-              <p className="text-white/80 text-lg leading-relaxed mb-8 italic">
-                &ldquo;{testimonials[current].content}&rdquo;
+              {/* Large opening quote mark */}
+              <span
+                className="block text-6xl leading-none font-serif mb-2 select-none"
+                style={{ color: "var(--accent-glow)", fontFamily: "Georgia, serif" }}
+                aria-hidden="true"
+              >
+                &ldquo;
+              </span>
+
+              <p className="text-[--text-secondary] text-base leading-relaxed mb-8">
+                {item.content}
               </p>
+
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center text-white font-semibold">
-                  {testimonials[current].avatar}
+                {/* Avatar */}
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white shrink-0"
+                  style={{ background: "linear-gradient(135deg, #7c6af7, #6366f1)" }}
+                  aria-hidden="true"
+                >
+                  {item.avatar}
                 </div>
                 <div>
-                  <p className="text-white font-semibold">{testimonials[current].name}</p>
-                  <p className="text-white/50 text-sm">
-                    {testimonials[current].role} at {testimonials[current].company}
+                  <p className="text-[--text-primary] font-semibold text-sm">{item.name}</p>
+                  <p className="text-[--text-muted] text-xs">
+                    {item.role}
+                    <span aria-hidden="true"> · </span>
+                    {item.company}
                   </p>
                 </div>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <button
-              onClick={prev}
-              className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-cyan-400 hover:border-cyan-400/30 transition-colors cursor-pointer"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <div className="flex gap-2">
+          {/* Controls */}
+          <div className="flex items-center justify-between mt-6">
+            {/* Dot indicators */}
+            <div className="flex gap-1.5">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => {
-                    setDirection(i > current ? 1 : -1);
-                    setCurrent(i);
-                  }}
-                  className={`w-2 h-2 rounded-full transition-all cursor-pointer ${
-                    i === current ? "bg-cyan-400 w-6" : "bg-white/20"
-                  }`}
+                  onClick={() => go(i, i > current ? 1 : -1)}
+                  className="cursor-pointer transition-all duration-200"
                   aria-label={`Go to testimonial ${i + 1}`}
-                />
+                >
+                  <span
+                    className="block rounded-full transition-all duration-200"
+                    style={{
+                      width:  i === current ? "20px" : "6px",
+                      height: "6px",
+                      background: i === current ? "var(--accent-light)" : "var(--border-2)",
+                    }}
+                  />
+                </button>
               ))}
             </div>
-            <button
-              onClick={next}
-              className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-cyan-400 hover:border-cyan-400/30 transition-colors cursor-pointer"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight size={20} />
-            </button>
+
+            {/* Arrow buttons */}
+            <div className="flex gap-2">
+              <button
+                onClick={prev}
+                aria-label="Previous testimonial"
+                className="w-8 h-8 rounded-lg border border-[--border-2] flex items-center justify-center text-[--text-muted] hover:text-[--text-primary] hover:border-[--accent] transition-colors cursor-pointer"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <button
+                onClick={next}
+                aria-label="Next testimonial"
+                className="w-8 h-8 rounded-lg border border-[--border-2] flex items-center justify-center text-[--text-muted] hover:text-[--text-primary] hover:border-[--accent] transition-colors cursor-pointer"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

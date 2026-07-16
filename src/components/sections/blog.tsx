@@ -1,17 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { Badge } from "@/components/ui/badge";
 import { blogPosts } from "@/lib/data/blog";
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
 export function Blog() {
   const { t } = useI18n();
 
   return (
-    <section id="blog" className="py-24 relative">
+    <section id="blog" className="py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title={t.blog.title} subtitle={t.blog.subtitle} />
 
@@ -19,43 +26,48 @@ export function Blog() {
           {blogPosts.map((post, i) => (
             <motion.article
               key={post.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -6 }}
-              className="group p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl hover:border-cyan-400/30 hover:shadow-lg hover:shadow-cyan-500/10 transition-all cursor-pointer"
+              transition={{ delay: i * 0.08, duration: 0.4 }}
+              className="group flex flex-col p-6 rounded-2xl border border-[--border] bg-[--surface] hover:border-[--border-2] transition-colors duration-200 cursor-pointer"
             >
-              <div className="flex items-center gap-4 text-white/40 text-xs mb-4">
-                <span className="flex items-center gap-1">
-                  <Calendar size={12} />
-                  {new Date(post.date).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Clock size={12} />
-                  {post.readTime}
-                </span>
-              </div>
-
-              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-cyan-400 transition-colors">
-                {post.title}
-              </h3>
-              <p className="text-white/60 text-sm leading-relaxed mb-4">{post.excerpt}</p>
-
-              <div className="flex flex-wrap gap-2 mb-4">
+              {/* Tags */}
+              <div className="flex flex-wrap gap-1.5 mb-4">
                 {post.tags.map((tag) => (
-                  <Badge key={tag}>{tag}</Badge>
+                  <span
+                    key={tag}
+                    className="px-2 py-0.5 rounded text-[10px] font-medium border border-[--border-2] text-[--text-muted]"
+                  >
+                    {tag}
+                  </span>
                 ))}
               </div>
 
-              <span className="inline-flex items-center gap-1 text-cyan-400 text-sm group-hover:gap-2 transition-all">
-                Read More
-                <ArrowRight size={14} />
-              </span>
+              {/* Title */}
+              <h3 className="font-semibold text-[--text-primary] mb-2 group-hover:text-[--accent-light] transition-colors leading-snug">
+                {post.title}
+              </h3>
+
+              {/* Excerpt */}
+              <p className="text-[--text-muted] text-sm leading-relaxed flex-1 mb-5 line-clamp-3">
+                {post.excerpt}
+              </p>
+
+              {/* Footer */}
+              <div className="flex items-center justify-between text-xs text-[--text-muted]">
+                <span>{formatDate(post.date)}</span>
+                <span className="flex items-center gap-0.5">{post.readTime}</span>
+              </div>
+
+              {/* Read more */}
+              <div className="mt-4 pt-4 border-t border-[--border] flex items-center justify-between">
+                <span className="text-xs text-[--accent-light] font-medium">Read article</span>
+                <ArrowUpRight
+                  size={14}
+                  className="text-[--text-muted] group-hover:text-[--accent-light] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                />
+              </div>
             </motion.article>
           ))}
         </div>

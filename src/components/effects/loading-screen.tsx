@@ -7,66 +7,66 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(onComplete, 400);
+    const id = setInterval(() => {
+      setProgress((p) => {
+        const next = p + Math.random() * 18 + 6;
+        if (next >= 100) {
+          clearInterval(id);
+          setTimeout(onComplete, 300);
           return 100;
         }
-        return prev + Math.random() * 15 + 5;
+        return next;
       });
-    }, 100);
-    return () => clearInterval(interval);
+    }, 90);
+    return () => clearInterval(id);
   }, [onComplete]);
+
+  const pct = Math.min(Math.floor(progress), 100);
 
   return (
     <AnimatePresence>
       <motion.div
-        exit={{ opacity: 0, scale: 1.1 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-        className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a0f]"
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.45, ease: "easeInOut" }}
+        className="fixed inset-0 z-[100] flex flex-col items-center justify-center"
+        style={{ background: "var(--bg)" }}
       >
+        {/* Logo mark */}
         <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 0.8, type: "spring", stiffness: 200 }}
-          className="relative mb-8"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          className="mb-10"
         >
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-2xl shadow-cyan-500/30">
-            <span className="text-3xl font-bold text-white">BM</span>
+          <div
+            className="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl font-bold"
+            style={{ background: "linear-gradient(135deg, #7c6af7, #6366f1)" }}
+          >
+            BM
           </div>
-          <motion.div
-            className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+        {/* Name */}
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-6"
+          transition={{ delay: 0.2 }}
+          className="text-[--text-secondary] text-sm mb-8 tracking-wide"
         >
           Brighton Magoro
-        </motion.h1>
+        </motion.p>
 
-        <div className="w-64 h-1 bg-white/10 rounded-full overflow-hidden">
+        {/* Progress bar */}
+        <div className="w-48 h-px bg-[--border] rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full"
-            style={{ width: `${Math.min(progress, 100)}%` }}
-            transition={{ duration: 0.1 }}
+            className="h-full rounded-full"
+            style={{
+              width: `${pct}%`,
+              background: "linear-gradient(90deg, #7c6af7, #6366f1)",
+            }}
+            transition={{ duration: 0.08 }}
           />
         </div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-white/40 text-sm mt-3"
-        >
-          {Math.min(Math.floor(progress), 100)}%
-        </motion.p>
       </motion.div>
     </AnimatePresence>
   );
