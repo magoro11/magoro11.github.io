@@ -48,12 +48,12 @@ export function GitHubStats() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch("https://api.github.com/users/brightonmagoro");
+        const res = await fetch("https://api.github.com/users/magoro11");
         if (!res.ok) throw new Error();
         const u = await res.json();
         setData({ publicRepos: u.public_repos, followers: u.followers, following: u.following, login: u.login, bio: u.bio });
 
-        const rRes = await fetch("https://api.github.com/users/brightonmagoro/repos?sort=updated&per_page=10");
+        const rRes = await fetch("https://api.github.com/users/magoro11/repos?sort=updated&per_page=10");
         if (rRes.ok) {
           const repos = await rRes.json();
           const counts: Record<string, number> = {};
@@ -67,7 +67,7 @@ export function GitHubStats() {
           setLangs(result.length ? result : FALLBACK_LANGS);
         }
       } catch {
-        setData({ publicRepos: 25, followers: 10, following: 15, login: "brightonmagoro", bio: "Software Engineer" });
+        setData({ publicRepos: 0, followers: 0, following: 0, login: "magoro11", bio: "Software Engineer" });
         setLangs(FALLBACK_LANGS);
       } finally {
         setLoading(false);
@@ -87,7 +87,7 @@ export function GitHubStats() {
   return (
     <section id="github" className="py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title={t.github.title} subtitle={t.github.subtitle} />
+        <SectionHeading title="Most of my learning happens by building." subtitle="Explore my repositories, experiments, and production projects on GitHub." />
 
         <div className="grid lg:grid-cols-2 gap-6">
 
@@ -106,7 +106,7 @@ export function GitHubStats() {
                 <GitHubIcon size={22} className="text-[--accent-light]" />
               </div>
               <div>
-                <p className="font-semibold text-[--text-primary]">@{data?.login ?? "brightonmagoro"}</p>
+                <p className="font-semibold text-[--text-primary]">@{data?.login ?? "magoro11"}</p>
                 <p className="text-[--text-muted] text-sm">{data?.bio ?? "Software Engineer"}</p>
               </div>
             </div>
@@ -139,13 +139,13 @@ export function GitHubStats() {
             )}
 
             <a
-              href="https://github.com/brightonmagoro"
+              href="https://github.com/magoro11"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-xs text-[--accent-light] hover:underline mt-5"
             >
               <ExternalLink size={12} />
-              View profile
+              Visit GitHub
             </a>
           </motion.div>
 

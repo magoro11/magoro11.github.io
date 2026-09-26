@@ -40,7 +40,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         >
           <div
             className="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-xl font-bold"
-            style={{ background: "linear-gradient(135deg, #7c6af7, #6366f1)" }}
+            style={{ background: "linear-gradient(135deg, var(--accent), #d96b4d)" }}
           >
             BM
           </div>
@@ -62,7 +62,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
             className="h-full rounded-full"
             style={{
               width: `${pct}%`,
-              background: "linear-gradient(90deg, #7c6af7, #6366f1)",
+              background: "linear-gradient(90deg, var(--accent), #d96b4d)",
             }}
             transition={{ duration: 0.08 }}
           />

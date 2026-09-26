@@ -98,6 +98,26 @@ export function Projects() {
                     {project.description}
                   </p>
 
+                  {project.id === "project-loop" && (
+                    <div className="flex flex-wrap items-center gap-1.5 mb-4 text-[10px] font-mono text-[--accent-light]">
+                      {["Data", "API", "AI Processing", "Insights", "Reports"].map((step, index) => (
+                        <span key={step} className="inline-flex items-center gap-1.5">
+                          <span className="px-1.5 py-1 rounded border border-[--accent]/30 bg-[--accent-glow]">{step}</span>
+                          {index < 4 && <span className="text-[--text-muted]">→</span>}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <ul className="space-y-1.5 mb-4">
+                    {project.features.slice(0, 3).map((feature) => (
+                      <li key={feature} className="flex items-start gap-2 text-xs text-[--text-secondary]">
+                        <span className="mt-1.5 w-1 h-1 rounded-full bg-[--accent-light] shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
                   {/* Tech tags */}
                   <div className="flex flex-wrap gap-1.5 mb-4">
                     {project.technologies.map((tech) => (

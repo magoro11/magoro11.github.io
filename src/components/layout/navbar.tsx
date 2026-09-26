@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Command } from "lucide-react";
+import { Menu, X, Command, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n/context";
 import { ThemeToggle } from "@/components/features/theme-toggle";
@@ -11,11 +11,10 @@ import { cn } from "@/lib/utils";
 const NAV_ITEMS = [
   { key: "home"       as const, href: "#home" },
   { key: "about"      as const, href: "#about" },
-  { key: "skills"     as const, href: "#skills" },
-  { key: "projects"   as const, href: "#projects" },
   { key: "experience" as const, href: "#experience" },
+  { key: "projects"   as const, href: "#projects" },
+  { key: "skills"     as const, href: "#skills" },
   { key: "contact"    as const, href: "#contact" },
-  { key: "blog"       as const, href: "#blog" },
 ] as const;
 
 interface NavbarProps {
@@ -68,8 +67,8 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
         {/* Logo */}
         <a href="#home" className="flex items-center gap-2.5 group" aria-label="Brighton Magoro">
           <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold tracking-tight transition-shadow duration-200 group-hover:shadow-[0_0_16px_rgba(124,106,247,0.4)]"
-            style={{ background: "linear-gradient(135deg, #7c6af7, #6366f1)" }}
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold tracking-tight transition-shadow duration-200 group-hover:shadow-[0_0_16px_rgba(232,132,91,0.4)]"
+            style={{ background: "linear-gradient(135deg, var(--accent), #d96b4d)" }}
           >
             BM
           </div>
@@ -107,6 +106,14 @@ export function Navbar({ onOpenCommandPalette }: NavbarProps) {
             <Command size={13} />
             <span>⌘K</span>
           </button>
+          <a
+            href="/resume.pdf"
+            download
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-[--accent] hover:opacity-90 transition-opacity"
+          >
+            <FileText size={13} />
+            View Resume
+          </a>
           <LanguageSwitcher />
           <ThemeToggle />
           <button

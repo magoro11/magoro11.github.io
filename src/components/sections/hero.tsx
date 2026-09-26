@@ -2,17 +2,16 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowDown, Download, MapPin } from "lucide-react";
+import { ArrowDown, Download, Mail, MapPin } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/social-icons";
 import { useI18n } from "@/lib/i18n/context";
 import { Button } from "@/components/ui/button";
 import { MagneticButton } from "@/components/ui/magnetic-button";
-import Image from "next/image";
 
 const ROLES = [
   "Software Engineer",
-  "Full-Stack Developer",
-  "Problem Solver",
+  "Backend-Focused Full-Stack Engineer",
+  "AI-Powered Application Builder",
 ];
 
 function RoleCycler() {
@@ -51,11 +50,11 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden pt-16"
+      className="relative min-h-[92vh] flex items-center overflow-hidden pt-16"
     >
       {/* Subtle grid */}
       <div
-        className="absolute inset-0 grid-bg opacity-[0.35] pointer-events-none"
+        className="absolute inset-0 grid-bg opacity-[0.18] pointer-events-none"
         aria-hidden="true"
       />
       {/* Radial fade over grid at bottom */}
@@ -74,14 +73,14 @@ export function Hero() {
         transition={{ staggerChildren: 0.12, delayChildren: 0.2 }}
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full"
       >
-        <div className="grid lg:grid-cols-[1fr_auto] gap-16 items-center">
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-12 xl:gap-24 items-center">
 
           {/* ── Left: Text ── */}
           <div className="max-w-2xl">
 
             {/* Availability pill */}
             <motion.div variants={fadeUp} transition={{ duration: 0.5 }}>
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium tracking-wide border border-[--border-2] text-[--text-secondary] mb-8">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium tracking-[0.14em] uppercase border border-[--border-2] text-[--text-secondary] mb-8">
                 <span
                   className="w-1.5 h-1.5 rounded-full bg-[--success]"
                   style={{ boxShadow: "0 0 6px var(--success)" }}
@@ -94,14 +93,14 @@ export function Hero() {
             <motion.h1
               variants={fadeUp}
               transition={{ duration: 0.55 }}
-              className="text-5xl sm:text-6xl lg:text-[4.5rem] font-bold tracking-tight text-[--text-primary] leading-[1.08] mb-5"
+              className="text-5xl sm:text-6xl lg:text-[5.2rem] font-bold text-[--text-primary] leading-[0.98] mb-6"
             >
               {t.hero.greeting}{" "}
               <span
                 className="text-transparent bg-clip-text"
                 style={{
                   backgroundImage:
-                    "linear-gradient(135deg, #a99ff5 0%, #7c6af7 50%, #6366f1 100%)",
+                    "linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 65%, #c65a43 100%)",
                 }}
               >
                 Brighton
@@ -114,7 +113,7 @@ export function Hero() {
             <motion.p
               variants={fadeUp}
               transition={{ duration: 0.5 }}
-              className="text-lg sm:text-xl text-[--text-secondary] font-medium mb-6 h-7"
+              className="text-lg sm:text-xl text-[--accent-light] font-medium mb-6 h-7"
             >
               <RoleCycler />
             </motion.p>
@@ -123,7 +122,7 @@ export function Hero() {
             <motion.p
               variants={fadeUp}
               transition={{ duration: 0.5 }}
-              className="text-[--text-secondary] text-base sm:text-lg leading-relaxed mb-10 max-w-lg"
+              className="text-[--text-secondary] text-base sm:text-lg leading-relaxed mb-10 max-w-xl"
             >
               {t.hero.description}
             </motion.p>
@@ -137,11 +136,6 @@ export function Hero() {
               <MagneticButton>
                 <Button asChild size="lg">
                   <a href="#projects">{t.hero.viewWork}</a>
-                </Button>
-              </MagneticButton>
-              <MagneticButton>
-                <Button variant="outline" size="lg" asChild>
-                  <a href="#contact">{t.hero.getInTouch}</a>
                 </Button>
               </MagneticButton>
               <MagneticButton>
@@ -161,8 +155,9 @@ export function Hero() {
               className="flex items-center gap-3"
             >
               {[
-                { Icon: GitHubIcon, href: "https://github.com/brightonmagoro", label: "GitHub" },
-                { Icon: LinkedInIcon, href: "https://linkedin.com/in/brightonmagoro", label: "LinkedIn" },
+                { Icon: GitHubIcon, href: "https://github.com/magoro11", label: "GitHub" },
+                { Icon: LinkedInIcon, href: "https://www.linkedin.com/in/brighton-magoro-b3aa45364/", label: "LinkedIn" },
+                { Icon: Mail, href: "mailto:brightonmagoro@gmail.com", label: "Email" },
               ].map(({ Icon, href, label }) => (
                 <a
                   key={label}
@@ -170,7 +165,7 @@ export function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg border border-[--border-2] flex items-center justify-center text-[--text-muted] hover:text-[--text-primary] hover:border-[--accent] transition-colors duration-200"
+                    className="w-9 h-9 rounded-lg border border-[--border-2] flex items-center justify-center text-[--text-muted] hover:text-[--accent-light] hover:border-[--accent] transition-colors duration-200"
                 >
                   <Icon size={17} />
                 </a>
@@ -182,43 +177,27 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* ── Right: Photo ── */}
+          {/* ── Right: Engineering snapshot ── */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.4 }}
             className="hidden lg:block"
           >
-            <div className="relative w-72 h-72 xl:w-80 xl:h-80">
-              {/* Accent ring */}
-              <div
-                className="absolute -inset-px rounded-2xl"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(124,106,247,0.5) 0%, rgba(99,102,241,0.15) 60%, transparent 100%)",
-                  borderRadius: "18px",
-                }}
-                aria-hidden="true"
-              />
-              {/* Photo frame */}
-              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-[--border-2] bg-[--surface]">
-                <Image
-                  src="/profile.svg"
-                  alt="Brighton Magoro — Software Engineer"
-                  fill
-                  className="object-cover"
-                  priority
-                />
+            <div className="relative rounded-2xl border border-[--border-2] bg-[--surface]/90 shadow-2xl overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-[--border] text-[--text-muted] text-xs">
+                <span className="w-2 h-2 rounded-full bg-[#e8845b]" />
+                <span className="w-2 h-2 rounded-full bg-[#e8c45b]" />
+                <span className="w-2 h-2 rounded-full bg-[#75b982]" />
+                <span className="ml-2 font-mono">brighton.ts</span>
               </div>
-              {/* Small floating badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.5 }}
-                className="absolute -bottom-4 -left-4 px-3 py-2 rounded-xl border border-[--border-2] bg-[--surface] text-xs text-[--text-secondary] font-medium shadow-lg"
-              >
-                25+ projects shipped
-              </motion.div>
+              <pre className="p-6 text-[13px] leading-7 font-mono text-[--text-secondary] overflow-x-auto">
+                <code>{`const engineer = {\n  focus: ["Backend", "AI", "Cloud"],\n  stack: ["TypeScript", "Python", "PostgreSQL"],\n  mindset: "Build. Test. Deploy. Improve."\n};`}</code>
+              </pre>
+              <div className="px-6 pb-5 flex items-center gap-2 text-xs text-[--accent-light]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[--success] animate-pulse" />
+                Systems thinking in progress
+              </div>
             </div>
           </motion.div>
 

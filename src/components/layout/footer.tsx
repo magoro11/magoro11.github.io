@@ -17,7 +17,7 @@ export function Footer() {
           <div className="flex items-center gap-2.5">
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-[10px] font-bold"
-              style={{ background: "linear-gradient(135deg, #7c6af7, #6366f1)" }}
+              style={{ background: "linear-gradient(135deg, var(--accent), #d96b4d)" }}
               aria-hidden="true"
             >
               BM
@@ -30,8 +30,8 @@ export function Footer() {
           {/* Social links */}
           <div className="flex items-center gap-2">
             {[
-              { Icon: GitHubIcon,  href: "https://github.com/brightonmagoro",        label: "GitHub" },
-              { Icon: LinkedInIcon, href: "https://linkedin.com/in/brightonmagoro", label: "LinkedIn" },
+              { Icon: GitHubIcon,  href: "https://github.com/magoro11",        label: "GitHub" },
+              { Icon: LinkedInIcon, href: "https://www.linkedin.com/in/brighton-magoro-b3aa45364/", label: "LinkedIn" },
               { Icon: Mail,        href: "mailto:brightonmagoro@gmail.com",          label: "Email" },
             ].map(({ Icon, href, label }) => (
               <a

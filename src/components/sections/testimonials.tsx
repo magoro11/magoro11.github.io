@@ -60,7 +60,7 @@ export function Testimonials() {
                 {/* Avatar */}
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white shrink-0"
-                  style={{ background: "linear-gradient(135deg, #7c6af7, #6366f1)" }}
+                  style={{ background: "linear-gradient(135deg, var(--accent), #d96b4d)" }}
                   aria-hidden="true"
                 >
                   {item.avatar}

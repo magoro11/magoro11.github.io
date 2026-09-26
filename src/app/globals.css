@@ -3,22 +3,22 @@
 /* ─── Design Tokens ─────────────────────────────────────────────── */
 :root {
   /* Surfaces */
-  --bg:        #080810;
-  --bg-subtle: #0d0d1a;
-  --surface:   #111120;
-  --surface-2: #16162a;
+  --bg:        #101312;
+  --bg-subtle: #171b18;
+  --surface:   #1b211e;
+  --surface-2: #242b27;
   --border:    rgba(255, 255, 255, 0.07);
   --border-2:  rgba(255, 255, 255, 0.12);
 
   /* Text */
-  --text-primary:   #f0f0f8;
-  --text-secondary: rgba(240, 240, 248, 0.55);
-  --text-muted:     rgba(240, 240, 248, 0.30);
+  --text-primary:   #f4f0e8;
+  --text-secondary: rgba(244, 240, 232, 0.62);
+  --text-muted:     rgba(244, 240, 232, 0.38);
 
   /* Accent — single deliberate palette */
-  --accent:        #7c6af7;       /* indigo-violet */
-  --accent-light:  #a99ff5;
-  --accent-glow:   rgba(124, 106, 247, 0.18);
+  --accent:        #e8845b;
+  --accent-light:  #f3a37e;
+  --accent-glow:   rgba(232, 132, 91, 0.16);
 
   /* Semantic */
   --success: #34d399;
@@ -32,16 +32,16 @@
 }
 
 .light {
-  --bg:        #f7f7fc;
-  --bg-subtle: #eeeef8;
+  --bg:        #f3f0e8;
+  --bg-subtle: #e8e4d9;
   --surface:   #ffffff;
-  --surface-2: #f0f0f8;
+  --surface-2: #ebe7dd;
   --border:    rgba(0, 0, 0, 0.07);
   --border-2:  rgba(0, 0, 0, 0.12);
-  --text-primary:   #0d0d1a;
-  --text-secondary: rgba(13, 13, 26, 0.55);
-  --text-muted:     rgba(13, 13, 26, 0.35);
-  --accent-glow:    rgba(124, 106, 247, 0.10);
+  --text-primary:   #18201b;
+  --text-secondary: rgba(24, 32, 27, 0.62);
+  --text-muted:     rgba(24, 32, 27, 0.42);
+  --accent-glow:    rgba(232, 132, 91, 0.12);
 }
 
 @theme inline {
@@ -60,12 +60,12 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: rgba(124, 106, 247, 0.25) transparent;
+  scrollbar-color: rgba(232, 132, 91, 0.3) transparent;
 }
 
 html::-webkit-scrollbar        { width: 5px; }
 html::-webkit-scrollbar-track  { background: transparent; }
-html::-webkit-scrollbar-thumb  { background: rgba(124, 106, 247, 0.25); border-radius: 99px; }
+html::-webkit-scrollbar-thumb  { background: rgba(232, 132, 91, 0.3); border-radius: 99px; }
 
 body {
   background: var(--bg);
@@ -79,18 +79,18 @@ body {
 /* Dark radial background */
 body {
   background-image:
-    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(124, 106, 247, 0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 30% at 90% 60%,  rgba(99, 102, 241, 0.07) 0%, transparent 60%);
+    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(232, 132, 91, 0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 30% at 90% 60%,  rgba(103, 145, 117, 0.10) 0%, transparent 60%);
 }
 
 .light body {
   background-image:
-    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(124, 106, 247, 0.06) 0%, transparent 70%);
+    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(232, 132, 91, 0.10) 0%, transparent 70%);
 }
 
 /* ─── Typography ─────────────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
   line-height: 1.15;
 }
 

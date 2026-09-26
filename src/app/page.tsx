@@ -15,10 +15,10 @@ import { About } from "@/components/sections/about";
 import { Skills } from "@/components/sections/skills";
 import { Projects } from "@/components/sections/projects";
 import { Experience } from "@/components/sections/experience";
+import { Engineering } from "@/components/sections/engineering";
+import { Education } from "@/components/sections/education";
 import { GitHubStats } from "@/components/sections/github-stats";
-import { Testimonials } from "@/components/sections/testimonials";
 import { Contact } from "@/components/sections/contact";
-import { Blog } from "@/components/sections/blog";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 
 export default function Home() {
@@ -49,9 +49,9 @@ export default function Home() {
         <Skills />
         <Projects />
         <Experience />
+        <Engineering />
+        <Education />
         <GitHubStats />
-        <Testimonials />
-        <Blog />
         <Contact />
       </main>
       <Footer />

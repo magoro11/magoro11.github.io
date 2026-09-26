@@ -52,7 +52,7 @@ export function Skills() {
                     const t = tier(skill.level);
                     return (
                       <span
-                        key={skill.name}
+                        key={`${cat.id}-${skill.name}`}
                         className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${t.color}`}
                         title={t.label}
                       >

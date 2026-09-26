@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Brighton Magoro | Software Engineer & Full-Stack Developer",
+  title: "Brighton Magoro | Full-Stack Software Engineer",
   description:
-    "Passionate Software Engineer specializing in modern web technologies, scalable applications, and user-centered digital experiences. Available for internships, graduate roles, and full-time opportunities.",
+    "Full-stack software engineer building reliable web applications, production APIs, and AI-powered platforms with JavaScript, TypeScript, Python, React, Next.js, and Node.js.",
   keywords: [
     "Brighton Magoro",
     "Software Engineer",
@@ -25,16 +25,16 @@ export const metadata: Metadata = {
     "Nairobi",
     "Kenya",
   ],
-  authors: [{ name: "Brighton Magoro", url: "https://github.com/brightonmagoro" }],
+  authors: [{ name: "Brighton Magoro", url: "https://github.com/magoro11" }],
   creator: "Brighton Magoro",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://magoro11.github.io/",
     siteName: "Brighton Magoro Portfolio",
-    title: "Brighton Magoro | Software Engineer",
+    title: "Brighton Magoro | Full-Stack Software Engineer",
     description:
-      "Passionate Software Engineer specializing in modern web technologies and scalable applications.",
+      "Full-stack software engineer building reliable web products and AI-adjacent platforms.",
     images: [
       {
         url: "/og-image.svg",
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Brighton Magoro | Software Engineer",
+    title: "Brighton Magoro | Full-Stack Software Engineer",
     description:
-      "Passionate Software Engineer specializing in modern web technologies and scalable applications.",
+      "Full-stack software engineer building reliable web products and AI-adjacent platforms.",
     images: ["/og-image.svg"],
   },
   robots: {
@@ -71,8 +71,8 @@ const jsonLd = {
     addressCountry: "Kenya",
   },
   sameAs: [
-    "https://github.com/brightonmagoro",
-    "https://linkedin.com/in/brightonmagoro",
+    "https://github.com/magoro11",
+    "https://www.linkedin.com/in/brighton-magoro-b3aa45364/",
   ],
   knowsAbout: [
     "JavaScript",

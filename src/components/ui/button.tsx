@@ -47,7 +47,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size, className }))}
         style={
           isDefault
-            ? { background: "linear-gradient(135deg, #7c6af7, #6366f1)", ...style }
+            ? { background: "linear-gradient(135deg, var(--accent), #d96b4d)", ...style }
             : style
         }
         {...props}

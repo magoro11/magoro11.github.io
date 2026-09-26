@@ -11,6 +11,20 @@ export interface ExperienceItem {
 
 export const experienceItems: ExperienceItem[] = [
   {
+    id: "enjims",
+    title: "Junior Software Engineer",
+    organization: "Enjims Solution",
+    period: "May 2026 — Present",
+    type: "project",
+    description: "Working as a backend-focused engineer on production systems, contributing to server-side features and system reliability.",
+    highlights: [
+      "Building and maintaining backend services and APIs",
+      "Collaborating on system design and implementation",
+      "Developing practical IT and networking skills alongside backend engineering",
+    ],
+    technologies: ["Node.js", "REST APIs", "JavaScript", "Networking"],
+  },
+  {
     id: "zidio",
     title: "Full-Stack Development Intern",
     organization: "Zidio Development",
@@ -19,9 +33,9 @@ export const experienceItems: ExperienceItem[] = [
     description:
       "Building Project LOOP — a multi-tenant AI customer-feedback intelligence platform that classifies, analyses, and surfaces insights from customer feedback at scale.",
     highlights: [
-      "Architecting multi-tenant workspace isolation and role-based access control",
-      "Implementing a validated REST API layer with Next.js and TypeScript",
-      "Developing AI-powered features: automated classification, retrieval-grounded Q&A, and report generation via Claude AI",
+      "Building Project LOOP, a multi-tenant AI customer-feedback intelligence platform",
+      "Designing workspace isolation, role-based access control, and a schema-validated REST API",
+      "Developing automated feedback classification, retrieval-grounded Q&A, and report generation with Claude AI",
     ],
     technologies: ["Next.js", "TypeScript", "PostgreSQL", "Claude AI", "REST APIs"],
   },
@@ -34,10 +48,10 @@ export const experienceItems: ExperienceItem[] = [
     description:
       "Rebuilt client-facing front ends and developed full-stack features across MERN-stack applications, shipping real-time communication and GraphQL API layers.",
     highlights: [
-      "Rebuilt a client front end with a modern JS framework including auth and third-party API integration",
-      "Built full-stack applications on the MERN stack (MongoDB, Express, React, Node.js)",
-      "Implemented WebSocket-based real-time communication features",
-      "Developed GraphQL APIs to support front-end data requirements",
+      "Rebuilt a client-facing React front end with authentication, authorization, and three third-party API integrations",
+      "Built and shipped MERN-stack features across sprint cycles",
+      "Implemented WebSocket-based real-time communication",
+      "Developed GraphQL APIs for key front-end data needs",
     ],
     technologies: ["React", "Node.js", "MongoDB", "Express", "WebSockets", "GraphQL"],
   },
@@ -50,85 +64,10 @@ export const experienceItems: ExperienceItem[] = [
     description:
       "Maintained and secured physical and digital infrastructure for a busy commercial environment, covering network operations, CCTV systems, and web presence.",
     highlights: [
-      "Monitored network security, Wi-Fi connectivity, and CCTV/communications infrastructure",
-      "Configured and troubleshot Wi-Fi networking equipment and security settings; handled installations",
-      "Maintained the organisation's website and tracked analytics to inform improvements",
+      "Maintained network security and Wi-Fi infrastructure for CCTV and communications systems",
+      "Configured and repaired networking equipment for new installs and upgrades",
+      "Administered the website and analyzed traffic metrics to guide UX improvements",
     ],
     technologies: ["Networking", "CCTV", "Wi-Fi", "Security", "Analytics"],
-  },
-  {
-    id: "freelance",
-    title: "Freelance Full-Stack Developer",
-    organization: "Self-Employed",
-    period: "2023 — Present",
-    type: "freelance",
-    description:
-      "Delivering custom web applications and e-commerce solutions for clients across various industries.",
-    highlights: [
-      "Built 10+ client projects from concept to deployment",
-      "Managed full project lifecycle including design and deployment",
-      "Maintained 100% client satisfaction rate",
-    ],
-    technologies: ["React", "Next.js", "Node.js", "PostgreSQL"],
-  },
-  {
-    id: "projects",
-    title: "Software Development Projects",
-    organization: "Personal & Academic",
-    period: "2022 — Present",
-    type: "project",
-    description:
-      "Developed diverse full-stack applications including e-commerce platforms, learning systems, and management tools.",
-    highlights: [
-      "25+ completed projects across web and mobile",
-      "Focus on scalable architecture and clean code",
-      "Deployed applications on Vercel, Railway, and Render",
-    ],
-    technologies: ["React", "Node.js", "TypeScript", "MongoDB"],
-  },
-  {
-    id: "opensource",
-    title: "Open Source Contributor",
-    organization: "GitHub Community",
-    period: "2023 — Present",
-    type: "opensource",
-    description:
-      "Contributing to open-source projects and sharing knowledge with the developer community.",
-    highlights: [
-      "Active GitHub contributor with consistent commits",
-      "Collaborated on community-driven projects",
-      "Shared technical knowledge through documentation",
-    ],
-    technologies: ["Git", "GitHub", "JavaScript", "TypeScript"],
-  },
-  {
-    id: "leadership",
-    title: "Technical Leadership",
-    organization: "Development Teams",
-    period: "2023 — Present",
-    type: "leadership",
-    description:
-      "Led small development teams on collaborative projects, coordinating architecture decisions and code reviews.",
-    highlights: [
-      "Led team of 3-5 developers on group projects",
-      "Established coding standards and review processes",
-      "Mentored junior developers on best practices",
-    ],
-    technologies: ["React", "Node.js", "Git", "Agile"],
-  },
-  {
-    id: "internship",
-    title: "Software Engineering Intern",
-    organization: "Tech Industry",
-    period: "2024",
-    type: "internship",
-    description:
-      "Gained hands-on experience in professional software development environments and industry workflows.",
-    highlights: [
-      "Worked on production-level codebases",
-      "Participated in agile development sprints",
-      "Collaborated with cross-functional teams",
-    ],
-    technologies: ["React", "TypeScript", "REST APIs", "Git"],
   },
 ];

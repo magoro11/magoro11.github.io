@@ -139,7 +139,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   </Command.Item>
                   <Command.Item
                     onSelect={() => {
-                      window.open("https://github.com/brightonmagoro", "_blank");
+                      window.open("https://github.com/magoro11", "_blank");
                       onOpenChange(false);
                     }}
                     className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 cursor-pointer"
@@ -149,7 +149,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   </Command.Item>
                   <Command.Item
                     onSelect={() => {
-                      window.open("https://linkedin.com/in/brightonmagoro", "_blank");
+                      window.open("https://www.linkedin.com/in/brighton-magoro-b3aa45364/", "_blank");
                       onOpenChange(false);
                     }}
                     className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 cursor-pointer"

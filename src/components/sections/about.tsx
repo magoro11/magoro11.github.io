@@ -6,17 +6,17 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 
 const stats = [
-  { value: 25, suffix: "+", label: "Projects shipped" },
-  { value: 2,  suffix: "+", label: "Years building" },
-  { value: 20, suffix: "+", label: "Clients served" },
-  { value: 15, suffix: "+", label: "Technologies" },
+  { id: "experiences", value: 4, suffix: "+", label: "Development experiences" },
+  { id: "projects", value: 5, suffix: "+", label: "Major projects" },
+  { id: "stack", value: "Full-Stack + Backend", suffix: "", label: "" },
+  { id: "ai-data", value: "AI & Data Engineering", suffix: "", label: "" },
 ];
 
 const milestones = [
-  { year: "2021", title: "Started Programming", detail: "Discovered software development — began with web fundamentals." },
-  { year: "2022", title: "Diploma in Software Dev", detail: "Formal grounding in engineering principles and system design." },
-  { year: "2023", title: "Full-Stack Focus", detail: "Deepened expertise in React, Node.js, and modern tooling." },
-  { year: "2024", title: "Freelance & Growth", detail: "Client projects, open-source contributions, and professional roles." },
+  { year: "2025", title: "Systems & Networking", detail: "Built practical experience across IT operations, Wi-Fi, CCTV, and web administration." },
+  { year: "2026", title: "Full-Stack Engineering", detail: "Shipped production features across React, Node.js, APIs, databases, and cloud tooling." },
+  { year: "Now", title: "AI-Adjacent Products", detail: "Building Project LOOP, a multi-tenant feedback-intelligence platform powered by Claude AI." },
+  { year: "Next", title: "Data & Systems", detail: "Growing toward reliable full-stack and AI-adjacent engineering work end to end." },
 ];
 
 const fadeUp = {
@@ -59,7 +59,7 @@ export function About() {
             >
               {stats.map((s, i) => (
                 <motion.div
-                  key={s.label}
+                  key={s.id}
                   initial={{ opacity: 0, y: 14 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}

@@ -103,8 +103,8 @@ export function Contact() {
             {/* Social links */}
             <div className="flex gap-2 pt-2">
               {[
-                { Icon: GitHubIcon,  href: "https://github.com/brightonmagoro",   label: "GitHub" },
-                { Icon: LinkedInIcon, href: "https://linkedin.com/in/brightonmagoro", label: "LinkedIn" },
+                { Icon: GitHubIcon,  href: "https://github.com/magoro11",   label: "GitHub" },
+                { Icon: LinkedInIcon, href: "https://www.linkedin.com/in/brighton-magoro-b3aa45364/", label: "LinkedIn" },
                 { Icon: Mail,        href: "mailto:brightonmagoro@gmail.com",      label: "Email" },
               ].map(({ Icon, href, label }) => (
                 <a
